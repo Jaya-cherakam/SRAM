@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])){?>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
 <meta name="google" value="notranslate"/>
-<title>Customer Register</title>
+<title>Employee</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/menu.css">
 <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -24,13 +24,14 @@ if(isset($_SESSION['id'])){?>
         <link rel="icon" href="images/icon.png" type="image/x-icon" />
         <!---- Icon link local ----->
         
-      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <!---- Font awesom link local ----->
 
 <style type="text/css">
- body {background-color: #eee;}
+body {background-color: #eee;}
 .container-fluid {padding:50px;}
-.container-fluid1{background-color:white;padding:1%; }
+.container-fluid1{background-color:white;padding:1%;}
+
 header{
     width:100%;
     margin-left:0%;
@@ -38,7 +39,7 @@ header{
     color: #1283A7;
     text-align: center;
 }
- body
+body
 {
   margin:0px;
   padding:0px;
@@ -147,6 +148,7 @@ width:200px;
 color: black;
 font-family: 'Titillium Web', sans-serif;
 }
+
 nav {
 -webkit-user-select:none;
 -moz-user-select:none;
@@ -181,7 +183,7 @@ height: 100%;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 #btnsearch{
-    width:40%;height: 40px;margin-top: 20%;margin-right: 50%;
+  width:50%;height: 40px;margin-top: 20%;
     display: inline-block;
     vertical-align: top;
     background-color:#1097A1;
@@ -208,7 +210,8 @@ height: 100%;
 </div>
   </nav>
 
-<nav class="main-menu" style="margin-top: 5%;position: fixed;z-index: 1;">  
+  
+<nav class="main-menu" style="margin-top: 5%;position: fixed;z-index: 1;"> 
 <div class="settings"></div>
 <div class="scrollbar" id="style-1">
 <ul>
@@ -234,7 +237,7 @@ height: 100%;
 </a>
 </li>   
   
-<li style="background-color:#CEFFEB;">
+<li>
 <a href="customer register.php">
 <i class="fa fa-id-badge fa-lg"></i>
 <span class="nav-text">Manage Customer</span>
@@ -248,7 +251,7 @@ height: 100%;
 </a>
 </li>
   
-<li>
+<li style="background-color:#CEFFEB;">
 <a href="employee.php">
 <i class="fa fa-id-badge fa-lg"></i>
 <span class="nav-text">Manage Employee</span>
@@ -275,9 +278,8 @@ height: 100%;
 <span class="nav-text">Updates</span>
 </a>
 </li>
-</ul>
-</nav>
-
+</ul>    
+ </nav>
 
 <div class="container-fluid" style="height:0px;">
   <button  style="width:10%;height: 40px;margin-right: 50%;
@@ -286,21 +288,22 @@ height: 100%;
     border-radius: 20px;
     color: #1097A1;
     font-size: 16px;
+    margin-top: 3%;
     margin-left: 15%;
-    margin-top: 5%;
-    border: 1px solid lightgray;" onclick="window.location.href='customer register.php'">New Register</button>
-    <button class="span" onclick="window.location.href='customer list.php'" style="color: black;">List</button>
-    </div>
+    border: 1px solid lightgray;" onclick="window.location.href='employee.php'">New Register</button>
+    <button class="span" onclick="window.location.href='employee list.php'" style="color: black;">List</button>
+    </div> 
 
-    <body style="margin-left: 3%;">
-    <div class="container" style="margin-top: 5%;width: 800px;"><br>
+    <body>
+    <div class="container" style="margin-top: 2%;width: 900px;"><br>
         <div class="container-fluid1">
         <header>
-        <h2>Customer Registration</h2>
+        <h2>Employee Registration</h2>
         </header>
             <div class="row" style="margin-left: 12%;">
                 <div class="col-md-4">
-                    <form action="server.php" method="Post">                         
+                    <form role="form" action="server.php" method="post">
+                        <fieldset>                          
                             <div class="form-group">
                                 <label for="name">Name:</label>  
                                 <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name" required="required">
@@ -318,24 +321,31 @@ height: 100%;
                             </div>
                             <div class="form-group">
                                 <label for="name">Adhaar:</label>     
-                                <input type="text" name="adhaar" maxlength="12" id="adhaar" class="form-control input-lg" placeholder="Adhaar" required="required">
+                                <input type="text" name="adhaar" id="Adhaar" class="form-control input-lg" maxlength="12" placeholder="Adhaar" required="required">
+                            </div>
+                             <div class="form-group">
+                                <label for="name">Employee Id:</label>     
+                                <input type="text" name="empId" id="Employee Id" class="form-control input-lg" placeholder="Employee Id" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="name">Email:</label>     
-                                <input type="email" name="email" id="Email" class="form-control input-lg" placeholder="Email" required="required">
+                                <input type="text" name="email" id="Email" class="form-control input-lg" placeholder="Email" required="required">
                             </div>
                          <div class="radio-btn">
-                        <p>Select User Type</p>
+                        <p>User Account Status</p>
                             <p>
-                                <input type="radio" id="Active" value="active" name="active">
+                                <input type="radio" id="Active" value="Active" name="active">
                                 <label for="Active">Active</label>
                             
-                                <input type="radio" id="In Active" value="In active" name="active">
+                                <input type="radio" id="In Active" value="In Active" name="active">
                                 <label for="In Active">In Active</label>
                             </p>
                         </div>
+                   
                         <div>
+                            
                         </div>
+                        </fieldset>
                 </div>
                 
                 <div class="col-md-2">
@@ -343,16 +353,16 @@ height: 100%;
                 </div>
                 
                 <div class="col-md-4">
-                                             
+                        <fieldset>                          
                                 
                             <div class="form-group">
                                 <label for="name">Current Address:</label>     
                                 <input type="text" name="currentAddress" id="Current Address" class="form-control input-lg" placeholder="Current Address" required="required">
                             </div>
                             <div class="form-group">
-                                <label for="name">Permanant Address:</label>     
+                                <label for="name">Permanent Address:</label>     
                                 
-                                <input type="text" name="permanentAddress" id="Permanent Address" class="form-control input-lg" placeholder="Permanent Address" required="required">
+                                <input type="text" name="permanentAddress" id="Permanant Address" class="form-control input-lg" placeholder="Permanent Address" required="required">
                             </div>
                             <div class="form-group">
                                 <label for="name">User Name:</label>     
@@ -363,12 +373,39 @@ height: 100%;
                                 <label for="name">Password:</label>     
                                 <input type="text" name="password" id="Password" class="form-control input-lg" placeholder="Password" required="required">
                             </div>
+                            <div class="form-group">
+                                <label for="name">Designation:</label>     
+                                <input type="text" name="designation" id="Designation" class="form-control input-lg" placeholder="Designation" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Joining Date:</label>     
+                                <input type="date" name="joiningDate" id="Joining Date" class="form-control input-lg" placeholder="joining Date" required="required">
+                            </div>
+
+                             <div class="radio-btn">
+                            <p>Select User Type</p>
+                            <p>
+                                <input type="radio" id="Employee" value="Employee" name="role">
+                                <label for="Active">Employee</label>
+                            
+                                <input type="radio" id="Director" value="Director" name="role">
+                                <label for="In Active">Director</label>
+                                
+                                <input type="radio" id="Manager" value="Manager" name="role">
+                                <label for="In Active">Manager</label>
+                            
+                            </p>
+                        </div>
+                   
+
 
                             <div class="row">
                             <div class="col-sm-12 text-center">
-                            <button type="submit" id="btnsearch" name="customer_reg" class="btn-primary btn-md center-block">Submit</button>
+                            <button type="submit" name="employee_reg" id="btnsearch" class="btn-primary btn-md center-block" >Submit</button>
                             </div>
                         </div>
+                                 
+                        </fieldset>
                 </form> 
                 </div>
             </div>

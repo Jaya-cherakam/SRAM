@@ -1,16 +1,23 @@
-<?php 
+<?php
 session_start();
-if(isset($_SESSION['id'])){?>
+if(isset($_SESSION['id'])){
+include'dbconfig.php';
+if (isset($_REQUEST["edit"])) {
+  $edit=$_REQUEST["edit"];
+$result=mysqli_query($con,"SELECT * FROM customerTable where customerId='$edit'")or die('error');
+?>
 <!DOCTYPE html><html class="menu">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
 <meta name="google" value="notranslate"/>
-<title>Customer Register</title>
+<title>Customer update</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/menu.css">
 <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="jquery/jquery.min.js"></script>
         <!---- jquery link local dont forget to place this in first than other script or link or may not work ---->
@@ -24,21 +31,10 @@ if(isset($_SESSION['id'])){?>
         <link rel="icon" href="images/icon.png" type="image/x-icon" />
         <!---- Icon link local ----->
         
-      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <!---- Font awesom link local ----->
-
 <style type="text/css">
- body {background-color: #eee;}
-.container-fluid {padding:50px;}
-.container-fluid1{background-color:white;padding:1%; }
-header{
-    width:100%;
-    margin-left:0%;
-    height: 64px;
-    color: #1283A7;
-    text-align: center;
-}
- body
+body
 {
   margin:0px;
   padding:0px;
@@ -46,8 +42,6 @@ header{
   color:black;
   font-weight:300;
 }
-
-
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 }
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
@@ -181,23 +175,74 @@ height: 100%;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 #btnsearch{
-    width:40%;height: 40px;margin-top: 20%;margin-right: 50%;
+  width:40%;height: 50px;
     display: inline-block;
     vertical-align: top;
     background-color:#1097A1;
+    border-color:gray;
     border-radius: 12px;
     border: 1px solid lightgray;
 }
-.span{
-  width: 10%;
-  height: 40px;
-  text-align: center;
+
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
   display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container {
+  border-radius: 5px;
+  width: 50%;
   background-color:white;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-left: 0%;
-  border: 1px solid lightgray;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+  margin-left: 25%;
+}
+
+.col-75 {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
 }
 </style>
 </head>
@@ -275,107 +320,110 @@ height: 100%;
 <span class="nav-text">Updates</span>
 </a>
 </li>
-</ul>
+</ul>    
 </nav>
 
-
-<div class="container-fluid" style="height:0px;">
-  <button  style="width:10%;height: 40px;margin-right: 50%;
-    display: inline-block;
-    background-color:white;
-    border-radius: 20px;
-    color: #1097A1;
-    font-size: 16px;
-    margin-left: 15%;
-    margin-top: 5%;
-    border: 1px solid lightgray;" onclick="window.location.href='customer register.php'">New Register</button>
-    <button class="span" onclick="window.location.href='customer list.php'" style="color: black;">List</button>
+<body>
+<div class="container" style="margin-top: 7%;">
+  <h2 align="center" style="color: #1097A1;">Customer Update</h2>
+  <form action="server.php" method="post">
+    <?php while($row=mysqli_fetch_array($result)) { ?>
+      <input type="hidden" name="id" value="<?php echo $row['customerId']?>">
+    <div class="row">
+      <div class="col-25">
+        <label for="User name">Name:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Username" name="name" placeholder="User name" value="<?php echo $row['name']?>">
+      </div>
     </div>
-
-    <body style="margin-left: 3%;">
-    <div class="container" style="margin-top: 5%;width: 800px;"><br>
-        <div class="container-fluid1">
-        <header>
-        <h2>Customer Registration</h2>
-        </header>
-            <div class="row" style="margin-left: 12%;">
-                <div class="col-md-4">
-                    <form action="server.php" method="Post">                         
-                            <div class="form-group">
-                                <label for="name">Name:</label>  
-                                <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name" required="required">
-                            </div>
-
-                            <div class="form-group">
-                                 <label for="name">Phone:</label> 
-                           
-                                <input type="text" name="phone" id="Phone" class="form-control input-lg" maxlength="10" placeholder="Phone" required="required">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="name">City:</label> 
-                                <input type="City" name="city" id="City" class="form-control input-lg" placeholder="City" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Adhaar:</label>     
-                                <input type="text" name="adhaar" maxlength="12" id="adhaar" class="form-control input-lg" placeholder="Adhaar" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Email:</label>     
-                                <input type="email" name="email" id="Email" class="form-control input-lg" placeholder="Email" required="required">
-                            </div>
-                         <div class="radio-btn">
-                        <p>Select User Type</p>
+    <div class="row">
+      <div class="col-25">
+        <label for="Email">Email:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Email" name="email" placeholder="Email" value="<?php echo $row['email']?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Phone">Phone:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Phone" name="phone" placeholder="Phone" value="<?php echo $row['mobileNumber']?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Aadhaar">Aadhaar:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Aadhaar" name="adhaar" placeholder="Aadhaar" value="<?php echo$row['aadhar']?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="User Name">User Name:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="User Name" name="username" placeholder="User Name" value="<?php echo $row['username']?>">
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col-25">
+        <label for="Password">Password:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Password" name="password" placeholder="Password" value="<?php echo $row['password']?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Password">Select User Type:</label>
+      </div>
                             <p>
-                                <input type="radio" id="Active" value="active" name="active">
+                                <input type="radio" value="active" name="active" <?php if($row['activeStatus']=='active') {echo "checked";}?>>
                                 <label for="Active">Active</label>
                             
-                                <input type="radio" id="In Active" value="In active" name="active">
+                                <input type="radio"  value="inactive" name="active" <?php if($row['activeStatus']=='inactive') {echo "checked";}?>>
                                 <label for="In Active">In Active</label>
-                            </p>
-                        </div>
-                        <div>
-                        </div>
-                </div>
-                
-                <div class="col-md-2">
-                    <!-------null------>
-                </div>
-                
-                <div class="col-md-4">
-                                             
-                                
-                            <div class="form-group">
-                                <label for="name">Current Address:</label>     
-                                <input type="text" name="currentAddress" id="Current Address" class="form-control input-lg" placeholder="Current Address" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Permanant Address:</label>     
-                                
-                                <input type="text" name="permanentAddress" id="Permanent Address" class="form-control input-lg" placeholder="Permanent Address" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">User Name:</label>     
-                                
-                                <input type="text" name="username" id="User Name" class="form-control input-lg" placeholder="Username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Password:</label>     
-                                <input type="text" name="password" id="Password" class="form-control input-lg" placeholder="Password" required="required">
-                            </div>
+                            </p></div>
 
-                            <div class="row">
-                            <div class="col-sm-12 text-center">
-                            <button type="submit" id="btnsearch" name="customer_reg" class="btn-primary btn-md center-block">Submit</button>
-                            </div>
-                        </div>
-                </form> 
-                </div>
-            </div>
-        </div>
-       </div>
+      <?php 
+      $cid=$row['customerId'];
+      $res=mysqli_query($con,"SELECT * FROM addressTable where userId='$cid' AND role='customer'")or die('error');
+      while($row1=mysqli_fetch_array($res)) {
+      ?>
+    <div class="row">
+      <div class="col-25">
+        <label for="city">City:</label>
+      </div>
+      <div class="col-75">
+       <input type="text" id="city" name="city" placeholder="city" value="<?php echo $row1['city']?>"> 
+      </div>
+    </div>
+    
+     <div class="row">
+      <div class="col-25">
+        <label for="Current Address">Current Address:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Current Address" name="currentAddress" placeholder="Current Address" value="<?php echo $row1['currentAddress']?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Permanant Address">Permanant Address:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Permanant Address" name="permanentAddress" placeholder="Permanant Address" value="<?php echo $row1['permanentAddress']?>">
+      </div>
+    </div><br>
+    <?php }}?>
+    <button type="submit" id="btnSearch" class="btn btn-primary btn-md center-block" name="customer_update" Style="width: 100px;background-color:#1097A1;border-style:none;" OnClick="btnSearch_Click" value="Update">Update</button>
+  </form></div>
 </body>
 </html>
-<?php }else{
+<?php }}else{
 header('location:login.php');
 }?>

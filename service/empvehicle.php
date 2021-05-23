@@ -1,17 +1,20 @@
 <?php 
 session_start();
-if(isset($_SESSION['id'])){?>
+if (isset($_SESSION['id'])){
+  $id=$_SESSION['id'];
+  include 'dbconfig.php';
+?>
 <!DOCTYPE html><html class="menu">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
 <meta name="google" value="notranslate"/>
-<title>Customer Register</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Employee Vehicle</title>
 <link rel="stylesheet" type="text/css" href="css/menu.css">
 <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="jquery/jquery.min.js"></script>
         <!---- jquery link local dont forget to place this in first than other script or link or may not work ---->
         
@@ -24,13 +27,16 @@ if(isset($_SESSION['id'])){?>
         <link rel="icon" href="images/icon.png" type="image/x-icon" />
         <!---- Icon link local ----->
         
-      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <!---- Font awesom link local ----->
 
 <style type="text/css">
- body {background-color: #eee;}
+  body {background-color: #eee;}
 .container-fluid {padding:50px;}
-.container-fluid1{background-color:white;padding:1%; }
+.container-fluid1{background-color:white;padding:1%;}
+
+
+
 header{
     width:100%;
     margin-left:0%;
@@ -38,7 +44,7 @@ header{
     color: #1283A7;
     text-align: center;
 }
- body
+body
 {
   margin:0px;
   padding:0px;
@@ -55,6 +61,7 @@ header{
 .logo{
   
 }
+
 .scrollbar:hover
 {
 
@@ -181,34 +188,34 @@ height: 100%;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 #btnsearch{
-    width:40%;height: 40px;margin-top: 20%;margin-right: 50%;
+  width:40%;height: 40px;margin-top: 20%;float: left;
     display: inline-block;
     vertical-align: top;
-    background-color:#1097A1;
+    background-color:#1283A7;
     border-radius: 12px;
     border: 1px solid lightgray;
 }
-.span{
-  width: 10%;
+  select.form-control input-lg {
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    100% 0;
+  background-repeat: no-repeat;
+  width: 100%;
   height: 40px;
-  text-align: center;
-  display: inline-block;
-  background-color:white;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-left: 0%;
+  background-color: white;
   border: 1px solid lightgray;
 }
 </style>
 </head>
-<body style="background-color: #eee;">
-  <nav class="navbar-fixed-top navbar-custom" style="background-color:white;height: 70px;">
-  <div class="navbar-header"><img src="3SRAM/sram1.jpeg" style="height:70px;width: 100%; border-radius: 40px;"></div>
+
+<nav class="navbar-fixed-top navbar-custom" style="background-color:white;height: 70px;">
+<div class="navbar-header"><img src="3SRAM/sram1.jpeg" style="height:70px;width: 100%; border-radius: 40px;"></div>
 <button class="navbar-header" style="float: right;border-radius: 18px;border:1px solid gray;background: #1097A1;; margin-top: 1%;color: white;" onclick="window.location.href='logout.php'"><i class="fa fa-sign-out fa-lg">Logout</i></button>
 </div>
   </nav>
 
-<nav class="main-menu" style="margin-top: 5%;position: fixed;z-index: 1;">  
+<nav class="main-menu" style="margin-top: 5%;position: fixed;z-index: 1;"> 
 <div class="settings"></div>
 <div class="scrollbar" id="style-1">
 <ul>
@@ -234,14 +241,14 @@ height: 100%;
 </a>
 </li>   
   
-<li style="background-color:#CEFFEB;">
+<li>
 <a href="customer register.php">
 <i class="fa fa-id-badge fa-lg"></i>
 <span class="nav-text">Manage Customer</span>
 </a>
 </li>
   
-<li>
+<li style="background-color:#CEFFEB;">
 <a href="vehicle.php">
 <i class="fa fa-truck fa-lg"></i>
 <span class="nav-text">Manage Vehicle</span>
@@ -275,9 +282,72 @@ height: 100%;
 <span class="nav-text">Updates</span>
 </a>
 </li>
-</ul>
+</ul>  
 </nav>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
+.top-container {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 20px 20px;
+  background-color: #768084;
+ }
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.span{
+  width: 10%;
+  height: 40px;
+  text-align: center;
+  display: inline-block;
+  background-color:white;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-left: 0%;
+  border: 1px solid lightgray;
+}
+
+.span1{
+  width: 20%;
+  height: 40px;
+  text-align: center;
+  display: inline-block;
+  background-color:white;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-left: 0%;
+  border: 1px solid lightgray;
+}
+</style>
+</head>
+<body style="margin-top: 5%;margin-left: 3%;">
+<div class="header" id="myHeader">
+  <button  style="width:20%;height: 40px;margin-right: 50%;
+    display: inline-block;
+    background-color:white;
+    border-radius: 20px;
+    font-size: 16px;
+    color: black;
+    margin-left: 5%;
+    border: 1px solid lightgray;" onclick="window.location.href='vehicle.php'">Manage Customer Vehicle</button>
+    <button class="span1" onclick="window.location.href='empvehicle.php'" style="color: #1283A7;">Manage Employee Vehicle</button>
+  </div>
 
 <div class="container-fluid" style="height:0px;">
   <button  style="width:10%;height: 40px;margin-right: 50%;
@@ -287,55 +357,51 @@ height: 100%;
     color: #1097A1;
     font-size: 16px;
     margin-left: 15%;
-    margin-top: 5%;
-    border: 1px solid lightgray;" onclick="window.location.href='customer register.php'">New Register</button>
-    <button class="span" onclick="window.location.href='customer list.php'" style="color: black;">List</button>
-    </div>
+    border: 1px solid lightgray;" onclick="window.location.href='empvehicle.php'" style="color: black;">New Register</button>
+    <button class="span" onclick="window.location.href='emplist.php'" style="color:black;">List</button>
+  </div>
 
-    <body style="margin-left: 3%;">
-    <div class="container" style="margin-top: 5%;width: 800px;"><br>
+<div class="container"><br>
         <div class="container-fluid1">
         <header>
-        <h2>Customer Registration</h2>
+        <h2>Vehicle Registration</h2>
         </header>
             <div class="row" style="margin-left: 12%;">
                 <div class="col-md-4">
-                    <form action="server.php" method="Post">                         
-                            <div class="form-group">
-                                <label for="name">Name:</label>  
-                                <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name" required="required">
-                            </div>
-
-                            <div class="form-group">
-                                 <label for="name">Phone:</label> 
-                           
-                                <input type="text" name="phone" id="Phone" class="form-control input-lg" maxlength="10" placeholder="Phone" required="required">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="name">City:</label> 
-                                <input type="City" name="city" id="City" class="form-control input-lg" placeholder="City" required="required">
+                    <form role="form" action="server.php" method="post">
+                        <fieldset>    
+                        <input type="hidden" value="<?php echo $id?>" name="id">                      
+                              <div class="form-group">
+                                <label for="name">Vehicle Reistration No:</label>  
+                                <input type="text" name="rgnumber" id="rgnumber" class="form-control input-lg" placeholder="" >
                             </div>
                             <div class="form-group">
-                                <label for="name">Adhaar:</label>     
-                                <input type="text" name="adhaar" maxlength="12" id="adhaar" class="form-control input-lg" placeholder="Adhaar" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Email:</label>     
-                                <input type="email" name="email" id="Email" class="form-control input-lg" placeholder="Email" required="required">
-                            </div>
-                         <div class="radio-btn">
-                        <p>Select User Type</p>
-                            <p>
-                                <input type="radio" id="Active" value="active" name="active">
-                                <label for="Active">Active</label>
+                              <label for="name">Vehicle type:</label> 
+                              <select class="form-control input-lg" id="type" name="type">
+                                <option selected="selected" value="0">Select type</option>
+                              <option value="bike">bike</option>
+                              <option value="others">others</option>
+                              </select>
                             
-                                <input type="radio" id="In Active" value="In active" name="active">
-                                <label for="In Active">In Active</label>
-                            </p>
-                        </div>
-                        <div>
-                        </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="name">Vehicle Model:</label> 
+                              <input type="text" name="model" class="form-control input-lg">
+                            
+                            </div>
+                            <div class="form-group">
+                              <?php
+                                
+                               $result=mysqli_query($con,"SELECT * FROM employeeTable where role!='admin'")or die('error');?>
+                              <label for="name">Employee Info:</label> 
+                              <select class="form-control input-lg" name="empid">
+                                <?php while($row=mysqli_fetch_array($result)) {   ?> 
+                              <option value="<?php echo$row['empId'] ?>"><?php echo $row['empId'].'-'.$row['name']?></option>
+                              <?php }?>
+                              </select>
+                              </div>
+                           </fieldset>
                 </div>
                 
                 <div class="col-md-2">
@@ -343,32 +409,26 @@ height: 100%;
                 </div>
                 
                 <div class="col-md-4">
-                                             
-                                
+                        <fieldset>                          
+                           
                             <div class="form-group">
-                                <label for="name">Current Address:</label>     
-                                <input type="text" name="currentAddress" id="Current Address" class="form-control input-lg" placeholder="Current Address" required="required">
+                                <label for="name">Tracking Id:</label> 
+                                <input type="City" name="trackid" id="City" class="form-control input-lg" placeholder="">
                             </div>
                             <div class="form-group">
-                                <label for="name">Permanant Address:</label>     
-                                
-                                <input type="text" name="permanentAddress" id="Permanent Address" class="form-control input-lg" placeholder="Permanent Address" required="required">
+                                <label for="name">Tracking Password:</label>     
+                                <input type="text" name="trackpw" id="Trackin gpassword" class="form-control input-lg" placeholder="">
                             </div>
                             <div class="form-group">
-                                <label for="name">User Name:</label>     
-                                
-                                <input type="text" name="username" id="User Name" class="form-control input-lg" placeholder="Username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Password:</label>     
-                                <input type="text" name="password" id="Password" class="form-control input-lg" placeholder="Password" required="required">
-                            </div>
+                            
 
                             <div class="row">
                             <div class="col-sm-12 text-center">
-                            <button type="submit" id="btnsearch" name="customer_reg" class="btn-primary btn-md center-block">Submit</button>
+                            <button type="submit" name="empvehicle_reg" id="btnsearch" class="btn-primary btn-md center-block">Submit</button>
                             </div>
                         </div>
+                                 
+                        </fieldset>
                 </form> 
                 </div>
             </div>
